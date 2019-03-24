@@ -10,6 +10,14 @@
 
 4. As a patient so that I can update my profile, I want to be able to upload necessary documents
 
+### Sub tasks
+
+1. For second->fourth story:
+    - Create Models for patient and patient record
+    - Create a sign up and sign in pages
+    - Correctly redirect sign in/sign up commands
+    - Allow patient to update record and add documents
+
 ## All user stories:
 1. As the doctor so that I can share my information to my patients I want a web page to display my expertise.
 
