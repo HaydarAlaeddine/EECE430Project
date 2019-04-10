@@ -1,57 +1,181 @@
-{% load static %}
 <!DOCTYPE html>
-<html>
-<head>
+{% load static %}
+<html lang="en">
+    <head>
+        <title>Dr PRO</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="Dr PRO template project">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/styles/bootstrap-4.1.2/bootstrap.min.css">
+        <link href="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/baseplugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+        <link rel="stylesheet" type="text/css" href="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+        <link rel="stylesheet" type="text/css" href="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/plugins/OwlCarousel2-2.2.1/animate.css">
+        <link href="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/plugins/jquery-datepicker/jquery-ui.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/styles/main_styles.css">
+        <link rel="stylesheet" type="text/css" href="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/styles/responsive.css">
+    </head>
+    <body>
 
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <div class="super_container">
+            
+            <!-- Header -->
 
+            <header class="header trans_400">
+                <div class="header_content d-flex flex-row align-items-center jusity-content-start trans_400">
 
-    <link rel="stylesheet" type="text/css" href="{% static 'base/main.css' %}">
+                    <!-- Logo -->
+                    <div class="logo">
+                        <a>
+                            <div>Dr<span>Samer Serhal</span></div>
+                            <div>Plastic Surgery</div>
+                        </a>
+                    </div>
 
-    {% if title %}
-        <title>Doctor Website - {{ title }}</title>
-    {% else %}
-        <title>Doctor Website</title>
-    {% endif %}
-</head>
-<body>
-    <header class="site-header">
-      <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-        <div class="container">
-          <a class="navbar-brand mr-4" href="{% url 'homepage' %}">Doctor Website</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarToggle">
-            <!-- Navbar Right Side -->
-            <div class="navbar-nav">
-              {% if user.is_authenticated %}
-                <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
-              {% else %}
-                <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
-                <a class="nav-item nav-link" href="{% url 'signup' %}">Register</a>
-              {% endif %}
-            </div>
-          </div>
+                    <!-- Main Navigation -->
+                    <nav class="main_nav">
+                        <ul class="d-flex flex-row align-items-center justify-content-start">
+                            <li class="active"><a href="index.html">Home</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                            {% if user.is_authenticated %}
+                            <li><a  href="{% url 'logout' %}">Logout</a></li>
+                            {% else %}
+                            <li><a href="{% url 'login' %}">Login</a></li>
+                            <li><a href="{% url 'signup' %}">Register</a></li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                    <div class="header_extra d-flex flex-row align-items-center justify-content-end ml-auto">
+                        
+                        <!-- Work Hourse -->
+                        <div class="work_hours">Mo - Sat: 8:00am - 9:00pm</div>
+
+                        <!-- Header Phone -->
+                        <div class="header_phone">+34 586 778 8892</div>
+
+                        <!-- Appointment Button -->
+                        <div class="button button_1 header_button"><a href="#">Make an Appointment</a></div>
+
+                    </div>
+                </div>
+            </header>
+
+            <!-- Footer -->
+
+            <footer class="footer">
+                <div class="footer_content">
+                    <div class="container">
+                        <div class="row">
+
+                            <!-- Footer About -->
+                            <div class="col-lg-3 footer_col">
+                                <div class="footer_about">
+                                    <div class="footer_logo">
+                                        <a>
+                                            <div>Dr<span>Samer Serhal</span></div>
+                                            <div>Plastic Surgery</div>
+                                        </a>
+                                    </div>
+                                    <div class="footer_about_text">
+                                        <p>Nulla facilisi. Nulla egestas vel lacus sed interdum. Sed mollis, orci eleme ntum eleifend tempor, nunc libero porttitor tellus.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Footer Contact Info -->
+                            <div class="col-lg-3 footer_col">
+                                <div class="footer_contact">
+                                    <div class="footer_title">Contact Info</div>
+                                    <ul class="contact_list">
+                                        <li>+53 345 7953 32453</li>
+                                        <li>yourmail@gmail.com</li>
+                                        <li>contact@gmail.com</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Footer Locations -->
+                            <div class="col-lg-3 footer_col">
+                                <div class="footer_location">
+                                    <div class="footer_title">Our Locations</div>
+                                    <ul class="locations_list">
+                                        <li>
+                                            <div class="location_title">Maamari Street</div>
+                                            <div class="location_text">Facing Kaddoura Pharmacy</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Footer Opening Hours -->
+                            <div class="col-lg-3 footer_col">
+                                <div class="opening_hours">
+                                    <div class="footer_title">Opening Hours</div>
+                                    <ul class="opening_hours_list">
+                                        <li class="d-flex flex-row align-items-start justify-content-start">
+                                            <div>Monday:</div>
+                                            <div class="ml-auto">8:00am - 9:00pm</div>
+                                        </li>
+                                        <li class="d-flex flex-row align-items-start justify-content-start">
+                                            <div>Thuesday:</div>
+                                            <div class="ml-auto">8:00am - 9:00pm</div>
+                                        </li>
+                                        <li class="d-flex flex-row align-items-start justify-content-start">
+                                            <div>Wednesday:</div>
+                                            <div class="ml-auto">8:00am - 9:00pm</div>
+                                        </li>
+                                        <li class="d-flex flex-row align-items-start justify-content-start">
+                                            <div>Thursday:</div>
+                                            <div class="ml-auto">8:00am - 9:00pm</div>
+                                        </li>
+                                        <li class="d-flex flex-row align-items-start justify-content-start">
+                                            <div>Friday:</div>
+                                            <div class="ml-auto">8:00am - 7:00pm</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="footer_bar">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="footer_bar_content  d-flex flex-md-row flex-column align-items-md-center justify-content-start">
+                                </div>
+                            </div>
+                        </div>
+                    </div>			
+                </div>
+            </footer>
         </div>
-      </nav>
-    </header>
-    <main role="main" class="container">
-      <div class="row">
-        <div class="col-md-8">
-          {% if messages %}
-            {% for message in messages %}
-              <div class="alert alert-{{ message.tags }}">
-                {{ message }}
-              </div>
-            {% endfor %}
-          {% endif %}
-          {% block content %}{% endblock %}
-        </div>
-      </div>
-    </main>
 
-</body>
+        <script src="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/js/jquery-3.2.1.min.js"></script>
+        <script src="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/styles/bootstrap-4.1.2/popper.js"></script>
+        <script src="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/styles/bootstrap-4.1.2/bootstrap.min.js"></script>
+        <script src="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/plugins/greensock/TweenMax.min.js"></script>
+        <script src="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/plugins/greensock/TimelineMax.min.js"></script>
+        <script src="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/plugins/scrollmagic/ScrollMagic.min.js"></script>
+        <script src="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/plugins/greensock/animation.gsap.min.js"></script>
+        <script src="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/plugins/greensock/ScrollToPlugin.min.js"></script>
+        <script src="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+        <script src="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/plugins/easing/easing.js"></script>
+        <script src="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/plugins/parallax-js-master/parallax.min.js"></script>
+        <script src="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/plugins/jquery-datepicker/jquery-ui.js"></script>
+        <script src="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/js/custom.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-23581568-13');
+        </script>
+
+    </body>
 </html>
