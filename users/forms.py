@@ -3,12 +3,29 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
 class UserRegisterForm(UserCreationForm):
+    blood_type_choices= [
+    ('AB+', 'AB+'),
+    ('AB-', 'AB-'),
+    ('A+', 'A+'),
+    ('A-', 'A-'),
+    ('B+', 'B+'),
+    ('B-', 'B-'),
+    ('O+', 'O+'),
+    ('O-', 'O-'),
+    ]
+
+
     email = forms.EmailField()
     first_name = forms.CharField()
     last_name = forms.CharField()
+    address = forms.CharField()
+    phone_number = forms.CharField()
+    date_of_birth = forms.DateField(help_text='Required Format: DD-MM-YYYY')
+    blood_type = forms.CharField(widget=forms.Select(choices=blood_type_choices))
+    medical_history = forms.CharField()
     class Meta:
         model = User
-        fields = ['username','first_name', 'last_name', 'email', 'password1', 'password2']
+        fields = ['username','first_name', 'last_name', 'email', 'date_of_birth','medical_history','phone_number','blood_type','medical_history' , 'password1', 'password2']
 
     def save(self, commit=True):
         user = super(UserRegisterForm, self).save(commit=False)

@@ -25,7 +25,7 @@ SECRET_KEY = '3&)#u32s6d*vc9p5xx0!r$uva@%7x_h&ia-*x3&ktum5k527e='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
     'base.apps.BaseConfig'
+<<<<<<< HEAD
     
+=======
+>>>>>>> e7efd3da584b82dbee80d699a87471cc564970c7
 ]
 
 MIDDLEWARE = [
@@ -122,4 +125,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+<<<<<<< HEAD
 LOGIN_REDIRECT_URL = 'homepage'
+=======
+STATICFILES_DIRS = ("C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/",)
+LOGIN_REDIRECT_URL = '/homepage'
+>>>>>>> e7efd3da584b82dbee80d699a87471cc564970c7
