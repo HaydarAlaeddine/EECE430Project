@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
-    'base.apps.BaseConfig'
+    'base.apps.BaseConfig',
+    
 ]
 
 MIDDLEWARE = [
@@ -49,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'django.contrib.staticfiles',
 ]
 
 ROOT_URLCONF = 'DoctorWebsite.urls'
@@ -121,5 +123,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = ("C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/",)
-LOGIN_REDIRECT_URL = '/homepage'
+STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'base')]
+LOGIN_REDIRECT_URL = '/'
+STATIC_ROOT = "/base/static/"

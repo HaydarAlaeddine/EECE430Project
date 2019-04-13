@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
+from .models import Appointment
 class UserRegisterForm(UserCreationForm):
     blood_type_choices= [
     ('AB+', 'AB+'),
@@ -20,7 +21,7 @@ class UserRegisterForm(UserCreationForm):
     last_name = forms.CharField()
     address = forms.CharField()
     phone_number = forms.CharField()
-    date_of_birth = forms.DateField(help_text='Required Format: DD-MM-YYYY')
+    date_of_birth = forms.DateField(help_text='Required Format: MM-DD-YYYY')
     blood_type = forms.CharField(widget=forms.Select(choices=blood_type_choices))
     medical_history = forms.CharField()
     class Meta:
@@ -35,3 +36,18 @@ class UserRegisterForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+class AppointmentForm(forms.ModelForm):
+    date = forms.DateTimeField()
+
+    class Meta:
+        model = Appointment
+        fields=['date']
+    
+    def save(self, commit=True):
+        appointment = super(AppointmentForm, self).save(commit=False)
+        appointment.date = self.cleaned_data["date"]
+        
+        if commit:
+            appointment.save()
+        return appointment

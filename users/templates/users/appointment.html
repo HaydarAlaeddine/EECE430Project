@@ -4,11 +4,16 @@
         <form method="POST">
             {% csrf_token %}
             <fieldset>
-                <legend class="border-bottom mb-4">Log In</legend>
+                <legend class="border-bottom mb-4">Take An Appointment Online</legend>
                 {{ form.as_p }}
+                {%if taken%}
+                    {%for t in taken%}
+                        {{t.user.first_name}}
+                    {%endfor%}
+                {%endif%}
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Login</button>
+                <button class="btn btn-outline-info" type="submit">Schedule Appointment</button>
             </div>
         </form>
         <div class="border-top pt-3">

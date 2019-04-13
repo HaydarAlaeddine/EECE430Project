@@ -7,14 +7,15 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content="Dr PRO template project">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/styles/bootstrap-4.1.2/bootstrap.min.css">
-        <link href="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/baseplugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" type="text/css" href="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
-        <link rel="stylesheet" type="text/css" href="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
-        <link rel="stylesheet" type="text/css" href="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/plugins/OwlCarousel2-2.2.1/animate.css">
-        <link href="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/plugins/jquery-datepicker/jquery-ui.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" type="text/css" href="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/styles/main_styles.css">
-        <link rel="stylesheet" type="text/css" href="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/styles/responsive.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/bootstrap-4.1.2/bootstrap.min.css'%}">
+        <link href="{%static 'plugins/font-awesome-4.7.0/css/font-awesome.min.css'%}" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="{%static 'plugins/OwlCarousel2-2.2.1/owl.carousel.css'%}">
+        <link rel="stylesheet" type="text/css" href="{%static 'plugins/OwlCarousel2-2.2.1/owl.theme.default.css'%}">
+        <link rel="stylesheet" type="text/css" href="{%static 'plugins/OwlCarousel2-2.2.1/animate.css'%}">
+        <link href="{%static 'plugins/jquery-datepicker/jquery-ui.css'%}" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/main_styles.css'%}">
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/responsive.css' %}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body>
 
@@ -36,9 +37,9 @@
                     <!-- Main Navigation -->
                     <nav class="main_nav">
                         <ul class="d-flex flex-row align-items-center justify-content-start">
-                            <li class="active"><a href="index.html">Home</a></li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li class="active"><a href="{% url 'homepage'%}">Home</a></li>
                             {% if user.is_authenticated %}
+                            <li><a href ={%url 'profile'%}>Profile</a></li>
                             <li><a  href="{% url 'logout' %}">Logout</a></li>
                             {% else %}
                             <li><a href="{% url 'login' %}">Login</a></li>
@@ -52,17 +53,27 @@
                         <div class="work_hours">Mo - Sat: 8:00am - 9:00pm</div>
 
                         <!-- Header Phone -->
-                        <div class="header_phone">+34 586 778 8892</div>
+                        <div class="header_phone">+96170159034</div>
 
                         <!-- Appointment Button -->
-                        <div class="button button_1 header_button"><a href="#">Make an Appointment</a></div>
+                        <div class="button button_1 header_button"><a href="{%url 'appointment'%}">Make an Appointment</a></div>
 
                     </div>
                 </div>
             </header>
-
+            <main> 
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {% block content %}{% endblock content%}
+            </main>
+            
             <!-- Footer -->
-
+        </body> 
             <footer class="footer">
                 <div class="footer_content">
                     <div class="container">
@@ -77,9 +88,6 @@
                                             <div>Plastic Surgery</div>
                                         </a>
                                     </div>
-                                    <div class="footer_about_text">
-                                        <p>Nulla facilisi. Nulla egestas vel lacus sed interdum. Sed mollis, orci eleme ntum eleifend tempor, nunc libero porttitor tellus.</p>
-                                    </div>
                                 </div>
                             </div>
 
@@ -88,8 +96,7 @@
                                 <div class="footer_contact">
                                     <div class="footer_title">Contact Info</div>
                                     <ul class="contact_list">
-                                        <li>+53 345 7953 32453</li>
-                                        <li>yourmail@gmail.com</li>
+                                        <li>+9617015904</li>
                                         <li>contact@gmail.com</li>
                                     </ul>
                                 </div>
@@ -145,6 +152,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="footer_bar_content  d-flex flex-md-row flex-column align-items-md-center justify-content-start">
+                                    
                                 </div>
                             </div>
                         </div>
@@ -167,15 +175,10 @@
         <script src="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/plugins/jquery-datepicker/jquery-ui.js"></script>
         <script src="C:/Users/haydar/Desktop/UNI/Spring 2019/EECE430/project/EECE430Project/base/js/custom.js"></script>
 
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
-        <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-        gtag('config', 'UA-23581568-13');
-        </script>
 
-    </body>
+    
 </html>
