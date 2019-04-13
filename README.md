@@ -1,22 +1,10 @@
 # EECE430Project
 
-## Stories for this phase:
-
-1. As the doctor so that I can share my information to my patients I want a web page to display my expertise.
-
-2. As the doctor so that I can view patient medicals records I have access to patients’ profiles
-
-3. As a patient so that I can open a profile I want to create an account.
-
-4. As a patient so that I can update my profile, I want to be able to upload necessary documents
-
-### Sub tasks
-
-1. For second->fourth story:
-    - Create Models for patient and patient record
-    - Create a sign up and sign in pages
-    - Correctly redirect sign in/sign up commands
-    - Allow patient to update record and add documents
+## Main TODO's Left:
+1. Fix some templates to support full functionality
+2. Integrate uploading documents with existing functionality
+3. Integrate sending emails when taking appointment
+4. Support admin functionalities without the /admin page
 
 ## All user stories:
 1. As the doctor so that I can share my information to my patients I want a web page to display my expertise.
