@@ -3,6 +3,7 @@ from django.contrib import messages
 from .forms import UserRegisterForm, AppointmentForm
 from .models import Appointment,Profile
 from django.contrib.auth.models import User
+from django.utils.timezone import now
 
 
 
@@ -55,9 +56,14 @@ def view_profile(request):
     if request.user.is_authenticated:
         user = User.objects.get(username=request.user.username)
         user_profile=Profile.objects.get(user=user)
+        user_apps = Appointment.objects.filter(user=user, date__gte=now())
+        user_passed_apps = Appointment.objects.filter(user=user, date__lte=now()) 
+        print(user_apps)
         context = {
             "profile":user_profile,
-            "user":user
+            "user":user,
+            "appointments": user_apps,
+            "passed_appointments": user_passed_apps
         }
         return render(request,'users/profile.html',context)
     else:
