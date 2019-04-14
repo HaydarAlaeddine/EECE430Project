@@ -27,7 +27,7 @@ class Appointment(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     date = models.DateTimeField(default=now())
     def __str__(self):
-        return f'{self.user.first_name} {self.user.last_name}'
+        return f'{self.date}'
 
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):
