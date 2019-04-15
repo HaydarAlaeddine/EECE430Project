@@ -29,6 +29,17 @@ def get_patient(request,username):
         return render(request,'admin/patient-details.html',context)
     else:
         return redirect(request,'user/login.html')
+def get_appointments(request):
+        if request.user.is_superuser:    
+                appointments = Appointment.objects.filter(date__gte=now())
+                context= {
+                        'appointments':appointments,
+                        'number':len(appointments)
+                }
+                print(appointments)
+                return render(request,'admin/appointments.html',context)
+        else:
+                return redirect(request,'user/login.html')
 
 
         

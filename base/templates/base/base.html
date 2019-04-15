@@ -41,7 +41,7 @@
                             {% if user.is_authenticated %}
                                 {%if user.is_superuser%}
                                 <li><a href ={%url 'patients'%}>Patients</a></li>
-                                <li><a href =#>Appointments</a></li>
+                                <li><a href ={%url 'appointments'%}>Appointments</a></li>
                                 {%else%}
                             <li><a href ={%url 'profile'%}>Profile</a></li>
                             {%endif%}

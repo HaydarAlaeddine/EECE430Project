@@ -1,0 +1,43 @@
+{%extends "base/base.html"%}
+{%block content%}
+<legend class="border-bottom mb-4">{{requested_user.first_name}} {{requested_user.last_name}}'s Profile</legend>
+<body>
+    <div style="float: left;">
+    <ol style="margin: 5px 5px 5px 15px; ">
+        <li class="d-flex flex-row align-items-start justify-content-start"><div class="profile-title">First Name:</div> <div class="profile-element"> {{requested_user.first_name}}</div></li>
+        <li class="d-flex flex-row align-items-start justify-content-start"><div class="profile-title">Last Name:</div> <div class="profile-element"> {{requested_user.last_name}}</div></li>
+        <li class="d-flex flex-row align-items-start justify-content-start"><div class="profile-title">Email:</div> <div class="profile-element"> {{requested_user.email}}</div></li>
+        <li class="d-flex flex-row align-items-start justify-content-start"><div class="profile-title">Address:</div> <div class="profile-element"> {{profile.address}}</div></li>
+        <li class="d-flex flex-row align-items-start justify-content-start"><div class="profile-title">Phone Number:</div> <div class="profile-element"> {{profile.phone_number}}</div></li>
+        <li class="d-flex flex-row align-items-start justify-content-start"><div class="profile-title">Date Of Birth:</div> <div class="profile-element"> {{record.date_of_birth}}</div></li>
+        <li class="d-flex flex-row align-items-start justify-content-start"><div class="profile-title">Medical History:</div> <div class="profile-element"> {{record.medical_history}}</div></li>
+        <li class="d-flex flex-row align-items-start justify-content-start"><div class="profile-title">Blood  Type:</div> <div class="profile-element"> {{record.blood_type}}</div></li>
+
+    </ol>
+    </div>
+    <legend class="border-bottom mb-4">{{requested_user.first_name}}'s Upcoming Appointments</legend>
+    <div>
+        <ol style="margin: 5px 5px 5px 15px; ">
+        {%if upcoming_appointments%}
+            {%for app in upcoming_appointments%}
+            <li class="d-flex flex-row align-items-start justify-content-start">{{app}}</li>
+            {%endfor%}
+        {%else%}
+        <p>{{requested_user.first_name}}  Have No Appointments Scheduled</p>
+        {%endif%}        
+    </ol>
+    </div>
+    <legend class="border-bottom mb-4">{{requested_user.first_name}}'s Previous Appointments</legend>
+    <div>
+        <ol style="margin: 5px 5px 5px 15px; ">
+        {%if previous_appointments%}
+            {%for app in previous_appointments%}
+            <li class="d-flex flex-row align-items-start justify-content-start">{{app}}</li>
+            {%endfor%}
+        {%else%}
+        <p>{{requested_user.first_name}} Have Not Yet Attended Any Appointments</p>
+        {%endif%}        
+    </ol>
+    </div>
+</body>
+{%endblock content%}
