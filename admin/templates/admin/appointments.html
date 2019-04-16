@@ -1,0 +1,13 @@
+{%extends "base/base.html"%}
+{%block content%}
+<legend class="border-bottom mb-4">Your Appointments. You have {{number}} Appointment!</legend>
+{%if appointments%}
+<ol style="margin: 5px 5px 5px 15px; ">
+    {%for app in appointments%}
+    <li class="border-bottom d-flex flex-row align-items-start justify-content-start"><a class="profile-element" href="{%url 'patient-details' app.user.username%}"> {{app.user.first_name}} {{app.user.last_name}}</a></li>
+    {%endfor%}
+</ol>
+{%else%}
+<p>You Have No Scheduled Appointments</p>    
+{%endif%}
+{%endblock content%}
