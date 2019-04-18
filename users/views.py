@@ -4,8 +4,8 @@ from .forms import UserRegisterForm, AppointmentForm
 from .models import Appointment,Profile
 from django.contrib.auth.models import User
 from django.utils.timezone import now
-
-
+from django.core.mail import send_mail
+from django.conf import settings
 
 # Create your views here.
 def sign_up(request):
@@ -21,6 +21,7 @@ def sign_up(request):
             user.record.blood_type = form.cleaned_data.get('blood_type')
             user.save()
             username = form.cleaned_data.get('username')
+            messages.success(request,f'Hello {username}, You Have Successfully Registered!')
             return redirect('login')
         else:
             messages.error(request,'Please complete all info')
@@ -42,6 +43,13 @@ def take_appointment(request):
                     user = User.objects.get(username=request.user.username)
                     appointment.user=user
                     appointment.save()
+                    messages.success(request,'You have successfully taken an appointment')
+                    send_mail(
+                        'Appointment With Dr. Serhal',
+                        f'You have successfully taken an appointment.\nDate: {appointment.date}.',
+                        settings.EMAIL_HOST_USER,
+                        [user.email,]
+                    )
                     return redirect('homepage')
                 
             else:
@@ -58,7 +66,6 @@ def view_profile(request):
         user_profile=Profile.objects.get(user=user)
         user_apps = Appointment.objects.filter(user=user, date__gte=now())
         user_passed_apps = Appointment.objects.filter(user=user, date__lte=now()) 
-        print(user_apps)
         context = {
             "profile":user_profile,
             "user":user,
