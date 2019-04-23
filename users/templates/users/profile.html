@@ -43,5 +43,29 @@
         {%endif%}        
     </ol>
     </div>
+    <legend class="border-bottom mb-4">Your Uploaded Files</legend>
+    <div>
+        <ol style="margin: 5px 5px 5px 15px; ">
+        {%if files%}
+            {%for f in files%}
+            <li class="d-flex flex-row align-items-start justify-content-start"><a class="profile-element" href="{%url 'get-file' f.description%}">{{f.description}}</a></li>
+            {%endfor%}
+        {%else%}
+        <p>You Have Not Yet Uploaded Any Files</p>
+        {%endif%}        
+    </ol>
+    </div>
+    <div class="content-section">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Upload a File!</legend>
+                {{ form.as_p }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Upload</button>
+            </div>
+        </form>
+    </div>
 </body>
 {%endblock content%}

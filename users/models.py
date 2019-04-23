@@ -29,6 +29,13 @@ class Appointment(models.Model):
     def __str__(self):
         return f'{self.date}'
 
+class File(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    uploaded_file = models.FileField(upload_to="files/")
+    description = models.CharField(max_length=200,unique=True)
+    def _str_(self):
+        return f'{self.description}'
+
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):
     if created:
