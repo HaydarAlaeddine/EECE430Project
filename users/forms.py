@@ -22,7 +22,7 @@ class UserRegisterForm(UserCreationForm):
     last_name = forms.CharField()
     address = forms.CharField()
     phone_number = forms.CharField()
-    date_of_birth = forms.DateField(help_text='Required Format: MM-DD-YYYY')
+    date_of_birth = forms.DateField(help_text='Required Format: MM/DD/YYYY')
     blood_type = forms.CharField(widget=forms.Select(choices=blood_type_choices))
     medical_history = forms.CharField()
     class Meta:
@@ -39,7 +39,7 @@ class UserRegisterForm(UserCreationForm):
         return user
 
 class AppointmentForm(forms.ModelForm):
-    date = forms.DateTimeField()
+    date = forms.DateTimeField(help_text='Required Format: MM/DD/YYYY')
 
     class Meta:
         model = Appointment

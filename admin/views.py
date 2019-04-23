@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from users.models import Profile, Record, Appointment, File
 from django.contrib.auth.models import User
 from django.utils.timezone import now
-from .forms import RequestDocumentForm
+from .forms import RequestDocumentForm, AppointmentForm
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
@@ -53,6 +53,7 @@ def get_patient(request,username):
         return render(request,'admin/patient-details.html',context)
     else:
         return redirect(request,'user/login.html')
+
 def get_appointments(request):
         if request.user.is_superuser:    
                 appointments = Appointment.objects.filter(date__gte=now())
@@ -65,5 +66,34 @@ def get_appointments(request):
         else:
                 return redirect(request,'user/login.html')
 
-
-        
+def add_appointments(request):
+        if request.user.is_superuser:
+                if request.method == 'POST':
+                        form=AppointmentForm(request.POST)
+                        if form.is_valid():
+                                date = form.cleaned_data.get('date')
+                                appointments=Appointment.objects.filter(date=date)
+                                if any(appointments) or date < now() :
+                                        messages.error(request,'Invalid Time.')
+                                
+                                else :
+                                        user = User.objects.get(username=form.cleaned_data.get('users_field'))
+                                        appointment=form.save(commit=False)
+                                        appointment.user=user
+                                        appointment.save()
+                                        messages.success(request,f'You have successfully taken an appointment for {user.first_name}')
+                                        send_mail(
+                                                'Appointment With Dr. Serhal',
+                                                f'You have successfully taken an appointment.\nDate: {appointment.date}.',
+                                                settings.EMAIL_HOST_USER,
+                                                [user.email,]
+                                        )
+                                        return redirect('add-appointments')
+                                
+                        else:
+                                messages.error(request,'Please complete all info')
+                else:
+                        form=AppointmentForm()
+                return render(request,'admin/add-appointments.html',{'form':form})
+        else :
+                return redirect('login')
