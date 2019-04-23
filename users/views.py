@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import UserRegisterForm, AppointmentForm
-from .models import Appointment,Profile
+from .forms import UserRegisterForm, AppointmentForm, UploadForm
+from .models import Appointment,Profile, File
 from django.contrib.auth.models import User
 from django.utils.timezone import now
 from django.core.mail import send_mail
 from django.conf import settings
+import os 
+from django.http import HttpResponse, Http404
 
 # Create your views here.
 def sign_up(request):
@@ -36,8 +38,8 @@ def take_appointment(request):
             if form.is_valid():
                 appointment = form.save(commit=False)
                 appointments=Appointment.objects.filter(date=appointment.date)
-                if any(appointments):
-                    messages.error(request,'This time is already taken')
+                if any(appointments) or appointment.date < now() :
+                    messages.error(request,'Invalid Time.')
                     
                 else :
                     user = User.objects.get(username=request.user.username)
@@ -62,16 +64,40 @@ def take_appointment(request):
 
 def view_profile(request):
     if request.user.is_authenticated:
+        if request.method == "POST":
+            form = UploadForm(request.POST, request.FILES)
+            if form.is_valid():
+                file = form.save(commit=False)
+                user = User.objects.get(username=request.user.username)
+                file.user = user
+                file.save()
+            else:
+                messages.error(request,'Please complete all info')
+        else:
+            form = UploadForm()
         user = User.objects.get(username=request.user.username)
         user_profile=Profile.objects.get(user=user)
         user_apps = Appointment.objects.filter(user=user, date__gte=now())
         user_passed_apps = Appointment.objects.filter(user=user, date__lte=now()) 
+        files = File.objects.filter(user=user)
         context = {
             "profile":user_profile,
             "user":user,
             "appointments": user_apps,
-            "passed_appointments": user_passed_apps
+            "passed_appointments": user_passed_apps,
+            "files": files,
+            "form": form
         }
         return render(request,'users/profile.html',context)
     else:
         redirect('login')
+
+def get_file(request,description):
+    if request.user.is_authenticated:
+        file = File.objects.get(description=description)
+        filename = file.uploaded_file.name.split('/')[-1]
+        response = HttpResponse(file.uploaded_file, content_type='text/plain')
+        response['Content-Disposition'] = 'attachment; filename=%s' % filename
+        return response
+    else:
+        return redirect('login')

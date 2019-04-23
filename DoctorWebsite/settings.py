@@ -110,7 +110,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'haydaralaeddine98@gmail.com'
-EMAIL_HOST_PASSWORD = 'haha1998'
+EMAIL_HOST_PASSWORD = 'haha1998_h'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
@@ -133,3 +133,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'base')]
 LOGIN_REDIRECT_URL = '/'
 STATIC_ROOT = "/base/static/"
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'

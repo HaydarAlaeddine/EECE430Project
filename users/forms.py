@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
 
-from .models import Appointment
+from .models import Appointment, File
 class UserRegisterForm(UserCreationForm):
     blood_type_choices= [
     ('AB+', 'AB+'),
@@ -53,3 +53,21 @@ class AppointmentForm(forms.ModelForm):
         if commit:
             appointment.save()
         return appointment
+
+class UploadForm(forms.ModelForm):
+    uploaded_file = forms.FileField()
+    description = forms.CharField()
+    class Meta:
+        model = File
+        fields = ['uploaded_file','description']
+    
+    def save(self, commit = True):
+        file = super(UploadForm, self).save(commit=False)
+        file.uploaded_file = self.cleaned_data["uploaded_file"]
+        file.description = self.cleaned_data["description"]
+        if commit:
+            file.save()
+        return file
+
+
+        
