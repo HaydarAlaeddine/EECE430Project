@@ -38,7 +38,7 @@ def take_appointment(request):
             if form.is_valid():
                 appointment = form.save(commit=False)
                 appointments=Appointment.objects.filter(date=appointment.date)
-                if any(appointments) or appointment.date < now() :
+                if any(appointments) :
                     messages.error(request,'Invalid Time.')
                     
                 else :
@@ -77,8 +77,8 @@ def view_profile(request):
             form = UploadForm()
         user = User.objects.get(username=request.user.username)
         user_profile=Profile.objects.get(user=user)
-        user_apps = Appointment.objects.filter(user=user, date__gte=now())
-        user_passed_apps = Appointment.objects.filter(user=user, date__lte=now()) 
+        user_apps = Appointment.objects.filter(user=user, date__gte=now()).order_by('date')
+        user_passed_apps = Appointment.objects.filter(user=user, date__lte=now()).order_by('date') 
         files = File.objects.filter(user=user)
         context = {
             "profile":user_profile,
@@ -104,7 +104,7 @@ def get_file(request,description):
 
 def delete_app(request,id):
     if request.user.is_authenticated:
-        print('sldufg') 
+       
         appointment = Appointment.objects.get(id=id)
         #user_apps = Appointment.objects.filter(user=request.user)
         if appointment.user == request.user:
