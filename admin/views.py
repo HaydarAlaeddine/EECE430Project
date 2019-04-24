@@ -159,3 +159,22 @@ def mark_as_missed(request,id):
                 return redirect(request.META['HTTP_REFERER'])
         else:
                 redirect('login')
+
+def metrics(request):
+        if request.user.is_superuser:
+                users=User.objects.filter(is_superuser=False)
+                online_appointments = Appointment.objects.filter(online=True)
+                offline_appointments = Appointment.objects.filter(online=False)
+                missed_online = Appointment.objects.filter(online=True,missed=True)
+                missed_offline = Appointment.objects.filter(online=False,missed=True)
+
+                context = {
+                        'users':len(users),
+                        'online_apps':len(online_appointments),
+                        'offline_apps':len(offline_appointments),
+                        'missed_online':len(missed_online),
+                        'missed_offline':len(missed_offline)
+                }
+                return render(request,'admin/metrics.html',context)
+        else:
+                redirect('login')

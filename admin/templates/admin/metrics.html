@@ -1,0 +1,47 @@
+{%extends "base/base.html"%}
+{%block content%}
+<div class="milestones">
+    <div class="row milestones_row">
+    
+        <!-- Milestone -->
+        <div class="col-md-4 milestone_col">
+            <div class="milestone">
+                <div class="milestone_counter">{{users}}</div>
+                <div class="milestone_text">Online Patients</div>
+            </div>
+        </div>
+
+        <!-- Milestone -->
+        <div class="col-md-4 milestone_col">
+            <div class="milestone">
+                <div class="milestone_counter">{{online_apps}}</div>
+                <div class="milestone_text">Online Appointments</div>
+            </div>
+        </div>
+
+         <!-- Milestone -->
+         <div class="col-md-4 milestone_col">
+            <div class="milestone">
+                <div class="milestone_counter" >{{missed_online}}</div>
+                <div class="milestone_text">Online Appointments Missed</div>
+            </div>
+        </div>
+
+        <!-- Milestone -->
+        <div class="col-md-4 milestone_col" >
+            <div class="milestone">
+                <div class="milestone_counter" style="margin-top:30px;">{{offline_apps}}</div>
+                <div class="milestone_text" >Offline Appointments </div>
+            </div>
+        </div>
+
+         <!-- Milestone -->
+         <div class="col-md-4 milestone_col">
+            <div class="milestone">
+                <div class="milestone_counter" style="margin-top:30px;">{{missed_offline}}</div>
+                <div class="milestone_text">Offline Appointments Missed</div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock content%}
