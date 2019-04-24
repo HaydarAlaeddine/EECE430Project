@@ -1,5 +1,8 @@
 {%extends "base/base.html"%}
 {%block content%}
+
+<legend class="border-bottom mb-4">Some Statistics About Your Website</legend>
+
 <div class="milestones">
     <div class="row milestones_row">
     
@@ -40,6 +43,54 @@
             <div class="milestone">
                 <div class="milestone_counter" style="margin-top:30px;">{{missed_offline}}</div>
                 <div class="milestone_text">Offline Appointments Missed</div>
+            </div>
+        </div>
+
+         <!-- Milestone -->
+         <div class="col-md-4 milestone_col">
+            <div class="milestone">
+                <div class="milestone_counter" style="margin-top:30px;">{{online_app_per}} %</div>
+                <div class="milestone_text">Online Appointments Percentage</div>
+            </div>
+        </div>
+
+         <!-- Milestone -->
+         <div class="col-md-4 milestone_col">
+            <div class="milestone">
+                <div class="milestone_counter" style="margin-top:30px;">{{online_attendance_per}} %</div>
+                <div class="milestone_text">Online Attendance Percentage</div>
+            </div>
+        </div>
+
+         <!-- Milestone -->
+         <div class="col-md-4 milestone_col">
+            <div class="milestone">
+                <div class="milestone_counter" style="margin-top:30px;">{{offline_app_per}} %</div>
+                <div class="milestone_text">Offline Appointments Percentage</div>
+            </div>
+        </div>
+
+         <!-- Milestone -->
+         <div class="col-md-4 milestone_col">
+            <div class="milestone">
+                <div class="milestone_counter" style="margin-top:30px;">{{offline_attendance_per}} %</div>
+                <div class="milestone_text">Offline Attendance Percentage</div>
+            </div>
+        </div>
+
+         <!-- Milestone -->
+         <div class="col-md-4 milestone_col">
+            <div class="milestone">
+                <div class="milestone_counter" style="margin-top:30px;">{{oor}}</div>
+                <div class="milestone_text" style="margin-bottom: 20px;">Online to Offline Ratio</div>
+            </div>
+        </div>
+        
+        <!-- Milestone -->
+        <div class="col-md-4 milestone_col">
+            <div class="milestone">
+                <div class="milestone_counter" style="margin-top:30px;">{{files}}</div>
+                <div class="milestone_text" style="margin-bottom: 20px;">Files Uploaded</div>
             </div>
         </div>
     </div>

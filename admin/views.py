@@ -20,7 +20,9 @@ def view_patients(request):
         return redirect(request,'user/login.html')
 
 def get_patient(request,username):
+
     if request.user.is_superuser:
+        print(now())
         user = User.objects.get(username=username)
         if request.method != "POST":
                 form = RequestDocumentForm()
@@ -62,7 +64,7 @@ def get_appointments(request):
                 users = User.objects.filter(is_superuser=False)
                 appointments = []
                 for user in users:
-                        user_apps = Appointment.objects.filter(user=user).order_by('date')
+                        user_apps = Appointment.objects.filter(user=user,date__gte=now()).order_by('date')
                         if any(user_apps):
                                 appointments.append(user_apps[0])
                 context= {
@@ -81,7 +83,7 @@ def add_appointments(request):
                         if form.is_valid():
                                 date = form.cleaned_data.get('date')
                                 appointments=Appointment.objects.filter(date=date)
-                                if any(appointments) or date<now() :
+                                if any(appointments) :
                                         messages.error(request,'Invalid Time.')
                                 
                                 else :
@@ -162,18 +164,30 @@ def mark_as_missed(request,id):
 
 def metrics(request):
         if request.user.is_superuser:
-                users=User.objects.filter(is_superuser=False)
-                online_appointments = Appointment.objects.filter(online=True)
-                offline_appointments = Appointment.objects.filter(online=False)
-                missed_online = Appointment.objects.filter(online=True,missed=True)
-                missed_offline = Appointment.objects.filter(online=False,missed=True)
+                users=len(User.objects.filter(is_superuser=False))
+                files=len(File.objects.all())
+                online_appointments = len(Appointment.objects.filter(online=True))
+                offline_appointments = len(Appointment.objects.filter(online=False))
+                missed_online = len(Appointment.objects.filter(online=True,missed=True))
+                missed_offline = len(Appointment.objects.filter(online=False,missed=True))
+                online_appointments_percentage = round((online_appointments/(online_appointments+offline_appointments))*100,2)
+                online_appointments_attendace_percentage = round(((online_appointments-missed_online)/online_appointments)*100,2)
+                offline_appointments_percentage = round(((offline_appointments)/(online_appointments+offline_appointments))*100,2)
+                offline_appointments_attendace_percentage = round(((offline_appointments-missed_offline)/offline_appointments)*100,2)
+                online_to_offline_ratio = round(online_appointments/offline_appointments,2)
 
                 context = {
-                        'users':len(users),
-                        'online_apps':len(online_appointments),
-                        'offline_apps':len(offline_appointments),
-                        'missed_online':len(missed_online),
-                        'missed_offline':len(missed_offline)
+                        'users':users,
+                        'files':files,
+                        'online_apps':online_appointments,
+                        'offline_apps':offline_appointments,
+                        'missed_online':missed_online,
+                        'missed_offline':missed_offline,
+                        'online_app_per':online_appointments_percentage,
+                        'online_attendance_per':online_appointments_attendace_percentage,
+                        'offline_app_per':offline_appointments_percentage,
+                        'offline_attendance_per':offline_appointments_attendace_percentage,
+                        'oor':online_to_offline_ratio
                 }
                 return render(request,'admin/metrics.html',context)
         else:

@@ -39,7 +39,7 @@ class UserRegisterForm(UserCreationForm):
         return user
 
 class AppointmentForm(forms.ModelForm):
-    date = forms.DateTimeField(help_text='Required Format: MM/DD/YYYY')
+    date = forms.DateTimeField(help_text='Required Format: MM/DD/YYYY Time 24hrs Format')
 
     class Meta:
         model = Appointment
