@@ -20,7 +20,7 @@
         <ol style="margin: 5px 5px 5px 15px; ">
         {%if upcoming_appointments%}
             {%for app in upcoming_appointments%}
-            <li class="d-flex flex-row align-items-start justify-content-start">{{app}}</li>
+            <li class="d-flex flex-row align-items-start justify-content-start">{{app}} <a style="margin-left:50px;" href="{%url 'modify' app.id%}">Modify This Appointment</a><a style="margin-left:50px;" href="{%url 'delete' app.id%}">Delete This Appointment</a> </li>
             {%endfor%}
         {%else%}
         <p>{{requested_user.first_name}} Has No Appointments Scheduled</p>
@@ -32,7 +32,7 @@
         <ol style="margin: 5px 5px 5px 15px; ">
         {%if previous_appointments%}
             {%for app in previous_appointments%}
-            <li class="d-flex flex-row align-items-start justify-content-start">{{app}}</li>
+            <li class="d-flex flex-row align-items-start justify-content-start">{{app}} <a style="margin-left:50px;" href="{%url 'mark-as-missed' app.id%}">Mark As Missed</a></li>
             {%endfor%}
         {%else%}
         <p>{{requested_user.first_name}} Has Not Yet Attended Any Appointments</p>

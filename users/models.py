@@ -26,6 +26,8 @@ class Record(models.Model):
 class Appointment(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     date = models.DateTimeField(default=now())
+    missed = models.BooleanField(default=False)
+    online = models.BooleanField(default=True)
     def __str__(self):
         return f'{self.date}'
 
