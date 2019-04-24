@@ -23,3 +23,8 @@ class AppointmentForm(forms.ModelForm):
         if commit:
             appointment.save()
         return appointment
+
+class ModifyAppointmentForm(forms.Form):
+    date = forms.DateTimeField(help_text='Required Format: MM/DD/YYYY')
+    class Meta:
+        fields=['date']

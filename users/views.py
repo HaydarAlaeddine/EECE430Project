@@ -101,3 +101,17 @@ def get_file(request,description):
         return response
     else:
         return redirect('login')
+
+def delete_app(request,id):
+    if request.user.is_authenticated:
+        print('sldufg') 
+        appointment = Appointment.objects.get(id=id)
+        #user_apps = Appointment.objects.filter(user=request.user)
+        if appointment.user == request.user:
+            appointment.delete()
+            messages.success(request,'Appointment Successfully Deleted!')
+            return redirect(request.META['HTTP_REFERER'])
+        else: 
+            return redirect('login')
+    else:
+        return redirect('login')
