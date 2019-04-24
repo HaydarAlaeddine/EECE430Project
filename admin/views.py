@@ -82,9 +82,10 @@ def add_appointments(request):
                         if form.is_valid():
                                 date = form.cleaned_data.get('date')
                                 appointments=Appointment.objects.filter(date=date)
-                                if any(appointments) or date<now():
-                                        messages.error(request,'Invalid Time.')
-                                
+                                if date<now():
+                                        messages.error(request,'This date is in the past!')
+                                elif  any(appointments):
+                                        messages.error(request,'Time Already Taken.')
                                 else :
                                         user = User.objects.get(username=form.cleaned_data.get('users_field'))
                                         appointment=form.save(commit=False)
@@ -119,7 +120,7 @@ def delete_appointment(request,id):
                         [appointment.user.email,]
                 )
                 messages.success(request,'Appointment Successfully Deleted!')
-                return redirect(request.META['HTTP_REFERER'])
+                return get_patient(request,appointment.username)
         else:
                 return redirect('login')
 
