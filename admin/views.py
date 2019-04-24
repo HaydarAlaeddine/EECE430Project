@@ -22,7 +22,6 @@ def view_patients(request):
 def get_patient(request,username):
 
     if request.user.is_superuser:
-        print(now())
         user = User.objects.get(username=username)
         if request.method != "POST":
                 form = RequestDocumentForm()
@@ -42,7 +41,7 @@ def get_patient(request,username):
                         pass
         profile = Profile.objects.get(user=user)
         record = Record.objects.get(user=user)
-        user_apps = Appointment.objects.filter(user=user, date__gte=now())
+        user_apps = Appointment.objects.filter(user=user, date__gt=now())
         user_passed_apps = Appointment.objects.filter(user=user, date__lte=now(),missed=False)
         user_files =  File.objects.filter(user=user)
         context = {
@@ -64,7 +63,7 @@ def get_appointments(request):
                 users = User.objects.filter(is_superuser=False)
                 appointments = []
                 for user in users:
-                        user_apps = Appointment.objects.filter(user=user,date__gte=now()).order_by('date')
+                        user_apps = Appointment.objects.filter(user=user,date__gt=now()).order_by('date')
                         if any(user_apps):
                                 appointments.append(user_apps[0])
                 context= {
@@ -83,7 +82,7 @@ def add_appointments(request):
                         if form.is_valid():
                                 date = form.cleaned_data.get('date')
                                 appointments=Appointment.objects.filter(date=date)
-                                if any(appointments) :
+                                if any(appointments) or date<now():
                                         messages.error(request,'Invalid Time.')
                                 
                                 else :
