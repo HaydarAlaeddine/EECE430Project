@@ -38,9 +38,10 @@ def take_appointment(request):
             if form.is_valid():
                 appointment = form.save(commit=False)
                 appointments=Appointment.objects.filter(date=appointment.date)
-                if any(appointments) or date<now():
-                    messages.error(request,'Invalid Time.')
-                    
+                if appointment.date<now():
+                    messages.error(request,'This date is in the past!')
+                elif  any(appointments):
+                     messages.error(request,'Time Already Taken.')
                 else :
                     user = User.objects.get(username=request.user.username)
                     appointment.user=user
