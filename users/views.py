@@ -38,7 +38,7 @@ def take_appointment(request):
             if form.is_valid():
                 appointment = form.save(commit=False)
                 appointments=Appointment.objects.filter(date=appointment.date)
-                if any(appointments) :
+                if any(appointments) or date<now():
                     messages.error(request,'Invalid Time.')
                     
                 else :
